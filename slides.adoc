@@ -1,0 +1,57 @@
+= Nouveau Poker @Betclic : All-in sur la plateforme !
+:imagesdir: images
+:source-highlighter: highlightjs
+:revealjs_theme: white
+:revealjs_history: true
+:revealjs_slideNumber: true
+:revealjs_totalTime: 2700
+:customcss: custom.css
+:icons: font
+:title-slide-transition: zoom
+//:title-slide-background-image: landing_hero_desktop.webp
+// devoxx.png
+:conf: landing_hero_desktop.webp
+
+image:{conf}[width=100%]
+♣️♦️♠️♥️ 
+
+++++
+<script type="text/javascript">
+window.addEventListener("load", function() {
+
+revealDiv = document.querySelector("body div.reveal")
+footer = document.getElementById("custom-footer");
+revealDiv.appendChild(footer);
+
+} );
+</script>
+<div id="custom-footer" class="footer">
+  <img src="images/betclic.png"/>
+</div>
+++++
+
+== First slide
+
+Content
+
+[.columns.is-vcentered]
+== Questions ?
+
+[.column]
+image:avatar.jpg[width=80%] +
+image:qrcode.png[width=80%]
+
+[.column.is-two-thirds]
+*Nicolas Comet* +
+Senior Staff Software Engineer +
+image:betclic.png[width=55%] +
+🥽🧪 Experience Lab +
+icon:envelope[] nicolas.comet@gmail.com +
+https://twitter.com/NicolasComet[icon:twitter[]@NicolasComet] +
+https://github.com/ncomet[icon:github[].com/ncomet] +
+https://www.linkedin.com/in/nicolascomet[icon:linkedin[].com/nicolascomet] +
+
+[%notitle]
+== Votez 🙏
+
+Vote
