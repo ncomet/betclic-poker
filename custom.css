@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "betclic-h1";
+    src: url("./fonts/Betclic-BoldItalic.woff2");
+}
+
+@font-face {
+    font-family: "betclic";
+    src: url("./fonts/Betclic-Medium.woff2");
+}
+
+.reveal .footer img {
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+}    
+
+.line-through{text-decoration:line-through}
+
+.reveal h1 {
+    font-family: 'betclic-h1';
+    font-size: 1.4em;
+    text-transform: none;
+}
+
+.reveal h2 {
+    font-family: 'betclic';
+    font-size: 1.2em;
+    text-transform: none;
+}
+
+@keyframes skew-x-shakeng {
+    0% { transform: skewX(-15deg); }
+    5% { transform: skewX(15deg); }
+    10% { transform: skewX(-15deg); }
+    15% { transform: skewX(15deg); }
+    20% { transform: skewX(0deg); }
+    100% { transform: skewX(0deg); }
+}
+
+@keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+}
+
+section[data-state="glitch"] h2 {
+    animation: skew-x-shakeng 0.20s infinite;
+}
+
+section[data-state="panic"] h2 {
+    animation: horizontal-shaking 0.20s infinite;
+}
+
+.reveal pre code {
+    max-height: 580px;
+}
+
+.reveal section div img {
+    border: 0;
+    box-shadow: none;
+}
+
+.reveal section[data-state="screens"] div img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
