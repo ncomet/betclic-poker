@@ -22,6 +22,7 @@ jobs:
           mkdir public
           cp -R node_modules public
           cp -R images public
+          cp -R fonts public
           cp custom.css public/custom.css
           cp slides.html public/index.html
           touch public/.nojekyll
