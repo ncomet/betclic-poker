@@ -1,4 +1,4 @@
-= Nouveau Poker @Betclic : All-in sur la plateforme !
+= All-in sur la plateforme : Nouveau Poker @Betclic !
 :imagesdir: images
 :source-highlighter: highlightjs
 :revealjs_theme: white
