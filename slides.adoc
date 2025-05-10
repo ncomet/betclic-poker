@@ -64,10 +64,14 @@ revealDiv.appendChild(footer);
 
 == Conclusion
 
+image:early_app.png[width=30%]
+
+[%notitle]
+== Conclusion
+
 * 2 variantes, 3 modes de jeu
-* 2 migrations de CI
 * Back office (emergencies, sanctions, ...)
-* Prévention/Détection
+* Prévention / Détection
 ** Fraude
 ** Collusion
 ** Bots
