@@ -64,16 +64,22 @@ revealDiv.appendChild(footer);
 
 == Conclusion
 
-* 2 variantes, 3 modes de jeu (radicalement différents)
+* 2 variantes, 3 modes de jeu
 * 2 migrations de CI
-* Back office (reporting, monitoring, etc.)
-* Détection
+* Back office (emergencies, sanctions, ...)
+* Prévention/Détection
 ** Fraude
 ** Collusion
 ** Bots
-* Conformité audits ANJ
-* Observabilité, Data analytics
+* Conformité audits ANJ, Data analytics
+* Observabilité
 * KPIs métier
+
+== Cross-device frontend
+
+* Flutter
+** 📱 iOS, Android
+** 🖥️ Windows, MacOS
 
 == Chiffres
 
