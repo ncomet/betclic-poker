@@ -64,14 +64,16 @@ revealDiv.appendChild(footer);
 
 == Conclusion
 
-* 3 modes de jeu (radicalement différents)
-* 2 variantes
+* 2 variantes, 3 modes de jeu (radicalement différents)
 * 2 migrations de CI
 * Back office (reporting, monitoring, etc.)
-* Détection de fraude
-* Détection de collusion
+* Détection
+** Fraude
+** Collusion
+** Bots
 * Conformité audits ANJ
-* Observabilité
+* Observabilité, Data analytics
+* KPIs métier
 
 == Chiffres
 
