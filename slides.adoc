@@ -30,9 +30,50 @@ revealDiv.appendChild(footer);
 </div>
 ++++
 
-== First slide
+== Contexte
 
-Content
+== Choix primordiaux
+
+== AWS GameLift
+
+== Architecture
+
+== RNG Service
+
+== Table(s), CQRS, events
+
+== Flows
+
+== Timekeeper
+
+== Proxy
+
+== Optimisation Serveur (WS, netty, Koin)
+
+== Base de Données (DynamoDB -> PostgreSQL)
+
+== Concurrence (non affinité)
+
+== La vie réelle (mise en prod)
+
+* 09/12/2023
+
+== Les abus
+
+== Critiques passagères
+
+== Conclusion
+
+* 3 modes de jeu (radicalement différents)
+* 2 variantes
+* 2 migrations de CI
+* Back office (reporting, monitoring, etc.)
+* Détection de fraude
+* Détection de collusion
+* Conformité audits ANJ
+* Observabilité
+
+== Chiffres
 
 [.columns.is-vcentered]
 == Questions ?
