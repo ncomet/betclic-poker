@@ -38,18 +38,17 @@ Content
 == Questions ?
 
 [.column]
-image:avatar.jpg[width=80%] +
-image:qrcode.png[width=80%]
+image:avatar.jpg[width=90%]
 
 [.column.is-two-thirds]
 *Nicolas Comet* +
 Senior Staff Software Engineer +
 image:betclic.png[width=55%] +
-🥽🧪 Experience Lab +
+Poker ♣️♦️♠️♥️ +
 icon:envelope[] nicolas.comet@gmail.com +
-https://twitter.com/NicolasComet[icon:twitter[]@NicolasComet] +
-https://github.com/ncomet[icon:github[].com/ncomet] +
 https://www.linkedin.com/in/nicolascomet[icon:linkedin[].com/nicolascomet] +
+https://bsky.app/profile/ncomet.bsky.social[@ncomet.bsky.social] +
+https://github.com/ncomet[icon:github[].com/ncomet] +
 
 [%notitle]
 == Votez 🙏
