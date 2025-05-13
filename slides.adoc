@@ -30,11 +30,55 @@ revealDiv.appendChild(footer);
 </div>
 ++++
 
-== Contexte
+== Ambition
 
-== Choix primordiaux
+* 🆕 Appli cross-device, 🆕 Plateforme de poker
+* *09/2023*
+** Lancement du projet 🚀
+** NDA public & _interne_ 🤐
+** 1 squad, 10 personnes (8 devs) 🥷
+* *12/2024*
+** Mise en prod 🎯
+**  3 squads, 60 personnes (40 devs) 📈
 
-== AWS GameLift
+== Contexte Poker
+
+[%step]
+* Complexité métier ♣️♦️♠️♥️ 
+* Complexité technique
+** Gaming temps réel
+** Concurrence
+** Pv__Betclic__ -> ✨PvP✨
+
+== Choix forts
+
+[%step]
+* Sur l'étagère 📦 (SaaS)
+* Archi hexagonale (DDD)
+* `Kotlin` + `Ktor`
+* API first 🙏
+* Immutabilité 🪨
+* CQRS + Events 📧
+
+== Immutabilité 🪨
+
+* Exemple avec `Table.seat(player: Player): Table` 
+
+== Invariants 🚫
+
+* Exemple avec `Player` et cards
+
+== Sealed classes
+
+* NullObjectPattern
+
+== Value classes
+
+* operator functions
+* commutatif, associatif, distributif
+* invariants
+
+== AWS GameLift 🎮
 
 == Architecture
 
