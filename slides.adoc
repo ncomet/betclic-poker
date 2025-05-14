@@ -60,6 +60,14 @@ revealDiv.appendChild(footer);
 * Immutabilité 🪨
 * CQRS + Events 📧
 
+== Kotlin
+
+* Moderne, haut niveau 
+* Concis 🪄
+* Null safe (compile time) 👋💣
+* Fonctionnel 
+* Décourage mutabilité, héritage 🙏
+
 == Immutabilité 🪨
 
 * Exemple avec `Table.seat(player: Player): Table` 
@@ -80,7 +88,16 @@ revealDiv.appendChild(footer);
 
 == AWS GameLift 🎮
 
+* Schéma de GameLift
+
 == Architecture
+
+* Schéma de l'architecture
+
+== Continuous Delivery
+
+* GameServers, discovery...
+* GS stateful
 
 == RNG Service
 
@@ -92,7 +109,7 @@ revealDiv.appendChild(footer);
 
 == Proxy
 
-== Optimisation Serveur (WS, netty, Koin)
+== Optimisation Serveur (WS, Netty, Koin)
 
 == Base de Données (DynamoDB -> PostgreSQL)
 
