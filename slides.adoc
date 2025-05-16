@@ -427,7 +427,12 @@ image::table.jpg[background, size=contain]
 [%notitle]
 == Conclusion
 
-* 2 variantes, 3 modes de jeu
+video::desktop_demo.mov[width=100%, opts=autoplay,loop]
+
+[%notitle]
+== Conclusion
+
+* 2 variantes, 3 🔜 4 modes de jeu
 * Back office (emergencies, sanctions, ...)
 * Prévention / Détection
 ** Fraude
