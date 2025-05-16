@@ -70,44 +70,336 @@ revealDiv.appendChild(footer);
 
 == Immutabilité 🪨
 
-* Exemple avec `Table.seat(player: Player): Table` 
+[source, kotlin]
+----
+// mutable
+class Table(
+  val id: TableId,
+  val players: MutableList<Player>,
+) {
+   fun seat(player: Player) {
+       players.add(player)
+   }
+}
+----
+
+[%step]
+[source, kotlin]
+----
+// immutable
+data class Table(
+  val id: TableId,
+  val players: List<Player>,
+) {
+   fun seat(player: Player): Table {
+       return copy(players = players + player)
+   }
+}
+----
 
 == Invariants 🚫
 
-* Exemple avec `Player` et cards
+[source, kotlin]
+----
+class Table(
+  val id: TableId,
+  val players: MutableList<Player>, // mutable
+  val config: TableConfig,
+) {
+   fun seat(player: Player) {
+      with(config) {
+        check(players.size in minPlayers..maxPlayers)
+        check(players.distinctBy { it.tablePosition }.size == players.size)
+      }
+      players.add(player)
+   }
 
-== Sealed classes
+   fun lastPlayerLeaves() {
+      with(config) {
+        check(players.size in config.minPlayers..config.maxPlayers)
+      }
+      players.removeLast()
+   }
+}
+----
 
-* NullObjectPattern
+== Invariants 🚫
+
+[source, kotlin]
+----
+data class Table(
+    val id: TableId,
+    val players: List<Player>, // immutable
+    val config: TableConfig,
+) {
+   init {
+     with(config) {
+       check(players.size in minPlayers..maxPlayers)
+       check(players.distinctBy { it.tablePosition }.size == players.size)
+     }
+   }
+
+   fun seat(player: Player): Table =
+      copy(players = players + player)
+
+   fun lastPlayerLeaves(): Table =
+      copy(players = players.dropLast(1))
+}
+----
+
+== Null
+
+* Kotlin, compilation ✅
+* L'absence de présence
+
+[source, kotlin]
+----
+data class RewardPoints(val value: Int)
+
+// use case
+interface RewardPlayer {
+  fun endGameRewardFor(player: Player): RewardPoints?
+}
+
+...
+rewardPlayer.endGameRewardFor(player) == null // 🤔
+...
+----
+
+== Sealed interfaces/classes
+
+NullObject pattern
+
+[source, kotlin]
+----
+// use case
+interface RewardPlayer {
+  fun endGameRewardFor(player: Player): Reward
+}
+
+sealed interface Reward {
+  data object NotEnoughGameTime : Reward
+  data class PlayerNotElligible(reason: Reason) : Reward
+  data class Points(val value: Int) : Reward
+}
+----
+
+[%step]
+[source, kotlin]
+----
+val reward = rewardPlayer.endGameRewardFor(player)
+// exhaustive when
+when (reward) {
+  is NotEnoughGameTime -> println("Needs to play more!")
+  is PlayerNotElligible -> println("Not eligible: $reason!")
+  is Points -> println("Player won ${reward.value} points!")
+  // no else, no default
+}
+----
 
 == Value classes
 
-* operator functions
-* commutatif, associatif, distributif
-* invariants
+* donner un sens métier aux valeurs
+* fonctions opérateurs
+* 🧮 commutatif, associatif, distributif
+* 🔑 invariants
+
+== Value classes 🪙
+
+[source, kotlin]
+----
+@JvmInline
+value class Chips(val value: Long) : Comparable<Chips> {
+  init {
+    require(value >= 0) { "Chips cannot be negative" }
+  }
+
+  operator fun plus(chips: Chips): Chips = 
+    Chips(value + chips.value)
+  operator fun minus(chips: Chips): Chips = 
+    Chips(value - chips.value)
+  operator fun times(factor: Int): Chips = 
+    Chips(value * factor)
+  override fun compareTo(other: Chips): Int = 
+    value.compareTo(other.value)
+}
+----
+
+[%step]
+[source, kotlin]
+----
+123.chips >= 42.chips // true
+123.chips in 100.chips..200.chips // true
+123.chips + 42.chips == 165.chips
+123.chips - 888.chips // 💥 IllegalArgumentException
+----
+
+== Value classes 🪙
+
+[source, kotlin]
+----
+@JvmInline
+value class Chips(val value: Long) : Comparable<Chips> {
+  init {
+    require(value >= 0) { "Chips cannot be negative" }
+  }
+  @Deprecated("Don't use div: splitBy()!", level = ERROR)
+  operator fun div(divider: Int): Chips = 
+    throw NotImplementedError()
+
+  fun splitBy(divider: Int): WholeAndRemainder {
+    require(divider > 0)
+    val whole = Chips(value / divider)
+    val remainder = Chips(value % divider)
+    return WholeAndRemainder(whole, remainder)
+  }
+)
+----
+
+[%step]
+image:div_deprecated.png[width=90%]
+
+== Value classes 🪙
+
+[source, kotlin]
+----
+fun split(pot: Chips, players: List<Player>)
+    : Map<Player, Chips>
+{
+  val (whole, remainder) = pot.splitBy(players.size) // ✅
+  return players.associateWith { whole } 
+    + (players.last() to (whole + remainder))
+}
+----
+
+[source, kotlin]
+----
+7 splitBy 3 == WholeAndRemainder(whole = 2, remainder = 1)
+
+//             🧑‍🦰  👱🏾    🧑‍🦲
+//            🟢🟢 🟢🟢 🟢🟢🟡
+----
+
+== Problématiques techniques
+
+* Jeu temps réel
+** Bidirectionnel 🌐 <--> 💻/📱
+** Latence
+** Animations, timings gérés par le serveur
+* Optimisations infrastructure
+** Réseau performant
+** Nombreuses connections
+** Rentabilité hardware
+
+[.columns.is-vcentered]
+== Jeu temps réel ⏲️
+
+[.column]
+image:grpc.png[width=80%]
+
+*VS.*
+
+[.column]
+image:websockets.png[width=45%] +
+WebSockets +
+
+== Protocoles
+
+|===
+|gRPC |WebSockets 
+
+|+ performance (binaire)
+|- verbeux (JSON)
+
+|- connu équipe (écosystème)
+|+ familier équipe
+
+|- navigateur (2023)
+|+ tous clients
+
+|- broadcast
+|+ broadcast
+|===
+
+== Ktor
+
+* ❌ Framework
+* 🪶 Light
+* ∥ Coroutines
+* 📦 WebSocket server engines
+* ⏭️ gRPC/protobuf
 
 == AWS GameLift 🎮
 
-* Schéma de GameLift
+* `Fleet` (cycle de vie & scaling des GameServers)
+* `FlexMatch` (matchmaking des joueurs)
 
+[%notitle]
 == Architecture
 
-* Schéma de l'architecture
+image::poker-archi.drawio.png[background, size=contain]
 
-== Continuous Delivery
+== ➕/➖ instances
 
-* GameServers, discovery...
-* GS stateful
+* icon:server[] × n Tables -> stateful
+* Mise à l'échelle ?
+* Rolling updates ?
+
+== Rolling updates
+
+++++
+<html>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <body>
+    <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant CI as CI/CD
+    participant OLD as instance N
+    participant FL as AWS Fleet
+    CI ->> FL: v. N+1
+    activate FL
+    create participant NEW as instance N+1
+    FL -->> NEW: 🆕
+    FL -->> NEW: AVAILABLE
+    activate NEW
+    FL -->> OLD: Refresh instance + UNAVAILABLE
+    deactivate FL
+    activate OLD
+    loop pour chaque table
+      OLD -->> OLD: Laisse table se finir
+      OLD ->> FL: Deregister table finie
+    end
+    OLD ->> FL: Termine instance
+    deactivate OLD
+    destroy OLD
+    FL -->> OLD: ❌
+    loop pour chaque table
+      NEW -->> NEW: Démarre table
+      NEW ->> FL: Register table prête
+      deactivate NEW
+    end
+    </pre>
+  </body>
+</html>
+++++
 
 == RNG Service
 
-== Table(s), CQRS, events
-
 == Flows
 
-== Timekeeper
+== CQRS
 
-== Proxy
+* Command Query Responsibility Segregation
+
+== Table, Commands, Events
+
+image:exposition-CQRS.png[width=70%]
+
+== Timekeeper
 
 == Optimisation Serveur (WS, Netty, Koin)
 
@@ -130,6 +422,11 @@ image:early_app.png[width=30%]
 [%notitle]
 == Conclusion
 
+image::table.jpg[background, size=contain]
+
+[%notitle]
+== Conclusion
+
 * 2 variantes, 3 modes de jeu
 * Back office (emergencies, sanctions, ...)
 * Prévention / Détection
@@ -147,6 +444,8 @@ image:early_app.png[width=30%]
 ** 🖥️ Windows, MacOS
 
 == Chiffres
+
+Donner des KPIs, avec l'accord de Cyril
 
 [.columns.is-vcentered]
 == Questions ?
