@@ -456,17 +456,17 @@ data class Table(
   val config: TableConfig,
 ) {
    fun seat(player: Player) {
-      with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
-        check(players.size in minPlayers..maxPlayers)
+      with(config) {
+        check(players.size in minPlayers..maxPlayers) <i class="conum" data-value="1"></i><b>(1)</b>
       }
       <i class="conum" data-value="2"></i><b>(2)</b>
-      check(players.distinctBy { it.tablePosition }.size == players.size)
+      check(players.distinctBy { it.position }.size == players.size)
       players.add(player) // mutation
    }
 
    fun lastPlayerLeaves() {
-      with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
-        check(players.size in minPlayers..maxPlayers)
+      with(config) {
+        check(players.size in minPlayers..maxPlayers) <i class="conum" data-value="1"></i><b>(1)</b>
       }
       players.removeLast() // mutation
    }
@@ -477,11 +477,11 @@ data class Table(
     val config: TableConfig,
 ) {
    init {
-     with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
-       check(players.size in minPlayers..maxPlayers)
+     with(config) {
+       check(players.size in minPlayers..maxPlayers) <i class="conum" data-value="1"></i><b>(1)</b>
      }
      <i class="conum" data-value="2"></i><b>(2)</b>
-     check(players.distinctBy { it.tablePosition }.size == players.size)
+     check(players.distinctBy { it.position }.size == players.size)
    }
 
    fun seat(player: Player): Table =
@@ -490,7 +490,7 @@ data class Table(
    fun lastPlayerLeaves(): Table =
       copy(players = players.dropLast(1)) // immutable
 }</code></pre></div></div></div></section>
-<section id="_null"><h2>Null</h2><div class="slide-content"><div class="ulist"><ul><li><p>Kotlin, compilation ✅</p></li><li><p>L&#8217;absence de présence</p></li></ul></div>
+<section id="_null"><h2><code>null</code></h2><div class="slide-content"><div class="ulist"><ul><li><p>Kotlin, compilation ✅</p></li><li><p>L&#8217;absence de présence</p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">data class RewardPoints(val value: Int)
 
 // use case
