@@ -233,13 +233,30 @@ value class Chips(val value: Long) : Comparable<Chips> {
 }
 ----
 
+== Value classes 🪙
+
+[source, kotlin]
+----
+@JvmInline
+value class Chips(val value: Long) : Comparable<Chips> {
+  init {
+    require(value >= 0) { "Chips cannot be negative" }
+  }
+  
+  companion object {
+    val Int.chips get() = Chips(toLong())
+  }
+}
+----
+
 [%step]
 [source, kotlin]
 ----
-123.chips >= 42.chips // true
+123.chips >= 42.chips             // true
 123.chips in 100.chips..200.chips // true
-123.chips + 42.chips == 165.chips
-123.chips - 888.chips // 💥 IllegalArgumentException
+123.chips + 42.chips == 165.chips // true
+111.chips * 7 == 777.chips        // true
+123.chips - 888.chips // 💥 Chips cannot be negative
 ----
 
 == Value classes 🪙
