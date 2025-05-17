@@ -255,7 +255,7 @@ value class Chips(val value: Long) : Comparable<Chips> {
   operator fun div(divider: Int): Chips = 
     throw NotImplementedError()
 
-  fun splitBy(divider: Int): WholeAndRemainder {
+  infix fun splitBy(divider: Int): WholeAndRemainder {
     require(divider > 0)
     val whole = Chips(value / divider)
     val remainder = Chips(value % divider)
