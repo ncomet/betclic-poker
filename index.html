@@ -427,9 +427,10 @@ revealDiv.appendChild(footer);
 <div id="custom-footer" class="footer">
   <img src="images/betclic.png"/>
 </div></div></section>
-<section id="_ambition"><h2>Ambition</h2><div class="slide-content"><div class="ulist"><ul><li><p>🆕 Appli cross-device, 🆕 Plateforme de poker</p></li><li><p><strong>09/2023</strong></p><div class="ulist"><ul><li><p>Lancement du projet 🚀</p></li><li><p>NDA public &amp; <em>interne</em> 🤐</p></li><li><p>1 squad, 10 personnes (8 devs) 🥷</p></li></ul></div></li><li><p><strong>12/2024</strong></p><div class="ulist"><ul><li><p>Mise en prod 🎯</p></li><li><p>3 squads, 60 personnes (40 devs) 📈</p></li></ul></div></li></ul></div></div></section>
-<section id="_contexte_poker"><h2>Contexte Poker</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p>Complexité métier ♣️♦️♠️♥️</p></li><li class="fragment"><p>Complexité technique</p><div class="ulist"><ul><li><p>Gaming temps réel</p></li><li><p>Concurrence</p></li><li><p>Pv<em>Betclic</em> &#8594; ✨PvP✨</p></li></ul></div></li></ul></div></div></section>
-<section id="_choix_forts"><h2>Choix forts</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p>Sur l&#8217;étagère 📦 (SaaS)</p></li><li class="fragment"><p>Archi hexagonale (DDD)</p></li><li class="fragment"><p><code>Kotlin</code> + <code>Ktor</code></p></li><li class="fragment"><p>API first 🙏</p></li><li class="fragment"><p>Immutabilité 🪨</p></li><li class="fragment"><p>CQRS + Events 📧</p></li></ul></div></div></section>
+<section id="_contexte"><h2>Contexte</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p>Poker white label <em>Betclic</em> 🏷️</p></li><li class="fragment"><p>Propre plateforme 🆕</p><div class="ulist"><ul><li><p>Être autonome 💪, réactif ⚡</p></li></ul></div></li><li class="fragment"><p>Moderniser le Poker ✨ 🎮</p></li></ul></div></div></section>
+<section id="_ambition"><h2>Ambition</h2><div class="slide-content"><div class="ulist"><ul><li><p>🆕 Plateforme de Poker &amp; App. cross-devices</p></li><li><p><strong>09/2023</strong></p><div class="ulist"><ul><li><p>Lancement du projet 🚀</p></li><li><p>NDA public &amp; <em>interne</em> 🤐</p></li><li><p>1 squad, 10 personnes (8 devs) 🥷</p></li></ul></div></li><li><p><strong>??/????</strong></p><div class="ulist"><ul><li><p>Mise en prod 🎯</p></li><li><p>3 squads, 60 personnes (40 devs) 📈</p></li></ul></div></li></ul></div></div></section>
+<section id="_poker_room"><h2>Poker Room</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p>Complexité métier ♣️♦️♠️♥️</p></li><li class="fragment"><p>Complexité technique</p><div class="ulist"><ul><li><p>Gaming temps réel</p></li><li><p>Concurrence</p></li><li><p>Pv<em>Betclic</em> &#8594; ✨PvP✨</p></li></ul></div></li></ul></div></div></section>
+<section id="_choix_forts"><h2>Choix forts</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p>Sur l&#8217;étagère 📦 (SaaS, PaaS)</p></li><li class="fragment"><p>Archi µservices hexa (mix DDD)</p></li><li class="fragment"><p><code>Kotlin</code> + <code>Ktor</code></p></li><li class="fragment"><p>Immutabilité 🪨</p></li><li class="fragment"><p>API first 📃🙏</p></li><li class="fragment"><p>CQRS + Events 📧</p></li></ul></div></div></section>
 <section id="_kotlin"><h2>Kotlin</h2><div class="slide-content"><div class="ulist"><ul><li><p>Moderne, haut niveau</p></li><li><p>Concis 🪄</p></li><li><p>Null safe (compile time) 👋💣</p></li><li><p>Fonctionnel</p></li><li><p>Décourage mutabilité, héritage 🙏</p></li></ul></div></div></section>
 <section id="_immutabilité"><h2>Immutabilité 🪨</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">// mutable
 class Table(
@@ -570,65 +571,32 @@ value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
 <div class="paragraph"><p><strong>VS.</strong></p></div>
 <div class="paragraph column"><p><span class="image"><img src="images/websockets.png" alt="websockets" width="45%"></span><br>
 WebSockets<br></p></div></div></section>
-<section id="_protocoles"><h2>Protocoles</h2><div class="slide-content"><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">gRPC</th><th class="tableblock halign-left valign-top">WebSockets</th></tr><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">+ performance (binaire)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">- verbeux (JSON)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- connu équipe (écosystème)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ familier équipe</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- navigateur (2023)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ tous clients</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- broadcast</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ broadcast</p></td></tr></table></div></section>
-<section id="_ktor"><h2>Ktor</h2><div class="slide-content"><div class="ulist"><ul><li><p>❌ Framework</p></li><li><p>🪶 Light</p></li><li><p>∥ Coroutines</p></li><li><p>📦 WebSocket server engines</p></li><li><p>⏭️ gRPC/protobuf</p></li></ul></div></div></section>
+<section id="_protocoles"><h2>Protocoles</h2><div class="slide-content"><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">gRPC</th><th class="tableblock halign-left valign-top">WebSockets</th></tr><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">+ performance (binaire)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">- verbeux (JSON)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- jeune écosystème</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ répandu (👨‍🦳, outillage)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- ❌ navigateur (2023)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ ✅ tous clients</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- 😓 broadcast</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ 🙏 broadcast</p></td></tr></table></div></section>
+<section id="_ktor"><h2>Ktor</h2><div class="slide-content"><div class="ulist"><ul><li><p>❌ Framework</p></li><li><p>🪶 Light</p></li><li><p>∥ Coroutines</p></li><li><p>📦 WebSocket, HTTP2</p><div class="ulist"><ul><li><p>server/client engine<strong>s</strong></p></li></ul></div></li><li><p>⏭️ gRPC/protobuf</p></li></ul></div></div></section>
 <section id="_aws_gamelift"><h2>AWS GameLift 🎮</h2><div class="slide-content"><div class="ulist"><ul><li><p><code>Fleet</code> (cycle de vie &amp; scaling des GameServers)</p></li><li><p><code>FlexMatch</code> (matchmaking des joueurs)</p></li></ul></div></div></section>
 <section id="_architecture" data-background-image="images/poker-archi.drawio.png" data-background-size="contain"></section>
 <section id="_instances"><h2>➕/➖ instances</h2><div class="slide-content"><div class="ulist"><ul><li><p><span class="icon"><i class="fa fa-server"></i></span> × n Tables &#8594; stateful</p></li><li><p>Mise à l&#8217;échelle ?</p></li><li><p>Rolling updates ?</p></li></ul></div></div></section>
-<section id="_rolling_updates"><h2>Rolling updates</h2><div class="slide-content"><html>
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script>
-  <body>
-    <pre class="mermaid">
-sequenceDiagram
-    autonumber
-    participant CI as CI/CD
-    participant OLD as instance N
-    participant FL as AWS Fleet
-    CI ->> FL: v. N+1
-    activate FL
-    create participant NEW as instance N+1
-    FL -->> NEW: 🆕
-    FL -->> NEW: AVAILABLE
-    activate NEW
-    FL -->> OLD: Refresh instance + UNAVAILABLE
-    deactivate FL
-    activate OLD
-    loop pour chaque table
-      OLD -->> OLD: Laisse table se finir
-      OLD ->> FL: Deregister table finie
-    end
-    OLD ->> FL: Termine instance
-    deactivate OLD
-    destroy OLD
-    FL -->> OLD: ❌
-    loop pour chaque table
-      NEW -->> NEW: Démarre table
-      NEW ->> FL: Register table prête
-      deactivate NEW
-    end
-    </pre>
-  </body>
-</html></div></section>
+<section id="_rolling_updates"><h2>Rolling updates</h2><div class="slide-content"><div class="paragraph"><p><span class="image"><img src="images/rolling_update.png" alt="rolling update" width="75%"></span></p></div></div></section>
 <section id="_rng_service"><h2>RNG Service</h2></section>
 <section id="_flows"><h2>Flows</h2></section>
-<section id="_cqrs"><h2>CQRS</h2><div class="slide-content"><div class="ulist"><ul><li><p>Command Query Responsibility Segregation</p></li></ul></div></div></section>
-<section id="_table_commands_events"><h2>Table, Commands, Events</h2><div class="slide-content"><div class="paragraph"><p><span class="image"><img src="images/exposition-CQRS.png" alt="exposition CQRS" width="70%"></span></p></div></div></section>
+<section id="_cqrs"><h2>CQRS</h2><div class="slide-content"><div class="paragraph"><p><strong>C</strong>ommand <strong>Q</strong>uery <strong>R</strong>esponsibility <strong>S</strong>egregation</p></div></div></section>
+<section id="_table_cqrs_events"><h2>Table : CQRS + Events</h2><div class="slide-content"><div class="paragraph"><p><span class="image"><img src="images/exposition-CQRS.png" alt="exposition CQRS" width="68%"></span></p></div></div></section>
 <section id="_timekeeper"><h2>Timekeeper</h2></section>
 <section id="_optimisation_serveur_ws_netty_koin"><h2>Optimisation Serveur (WS, Netty, Koin)</h2></section>
 <section id="_base_de_données_dynamodb_postgresql"><h2>Base de Données (DynamoDB &#8594; PostgreSQL)</h2></section>
 <section id="_concurrence_non_affinité"><h2>Concurrence (non affinité)</h2></section>
-<section id="_la_vie_réelle_mise_en_prod"><h2>La vie réelle (mise en prod)</h2><div class="slide-content"><div class="ulist"><ul><li><p>09/12/2023</p></li></ul></div></div></section>
-<section id="_les_abus"><h2>Les abus</h2></section>
-<section id="_critiques_passagères"><h2>Critiques passagères</h2></section>
+<section id="_go_live_mise_en_prod" class="columns is-vcentered"><h2>Go live, mise en prod !</h2><div class="slide-content"><div class="paragraph column"><p><strong>09/12/2024</strong><br>
+1 an, 3 mois</p></div>
+<div class="imageblock column"><img src="images/annonce_clubpoker.png" alt="annonce clubpoker"></div></div></section>
+<section id="_les_abus"><h2>Les abus ⛔</h2><div class="slide-content"><div class="ulist"><ul><li class="fragment"><p><em>Tournois</em> Enreg. tardif de masse 👨‍👩‍👦‍👦⌚</p></li><li class="fragment"><p><em>CashGame</em> sélection des adversaires 🔍</p></li><li class="fragment"><p><em>Spin&amp;Rush</em> lancements en rafale 📈</p></li></ul></div></div></section>
+<section id="_critiques_passagères"><h2>Critiques passagères</h2><div class="slide-content"><div class="paragraph"><p><span class="image"><img src="images/critics.gif" alt="critics"></span></p></div></div></section>
 <section id="_conclusion"><h2>Conclusion</h2><div class="slide-content"><div class="paragraph"><p><span class="image"><img src="images/early_app.png" alt="early app" width="30%"></span></p></div></div></section>
 <section id="_conclusion_2" data-background-image="images/table.jpg" data-background-size="contain"></section>
 <section id="_conclusion_3"><div class="slide-content"><div class="videoblock"><video src="images/desktop_demo.mov" width="100%" height="loop" data-autoplay controls>Your browser does not support the video tag.</video></div></div></section>
-<section id="_conclusion_4"><div class="slide-content"><div class="ulist"><ul><li><p>2 variantes, 3 🔜 4 modes de jeu</p></li><li><p>Back office (emergencies, sanctions, &#8230;&#8203;)</p></li><li><p>Prévention / Détection</p><div class="ulist"><ul><li><p>Fraude</p></li><li><p>Collusion</p></li><li><p>Bots</p></li></ul></div></li><li><p>Conformité audits ANJ, Data analytics</p></li><li><p>Observabilité</p></li><li><p>KPIs métier</p></li></ul></div></div></section>
+<section id="_achievement_unlocked"><h2>Achievement unlocked 🏆</h2><div class="slide-content"><div class="ulist"><ul><li><p>3 🔜 4 modes de jeu</p><div class="ulist"><ul><li><p><em>Spin&amp;Rush</em></p></li><li><p><em>CashGame</em> (Texas Holdem, Omaha)</p></li><li><p><em>Tournois</em> (MTT)</p></li></ul></div></li><li><p>Prévention / Détection</p><div class="ulist"><ul><li><p>Fraude</p></li><li><p>Collusion</p></li><li><p>Bots</p></li></ul></div></li></ul></div></div></section>
+<section id="_achievement_unlocked_2"><h2>Achievement unlocked 🏆</h2><div class="slide-content"><div class="ulist"><ul><li><p>Back office (urgences, sanctions, &#8230;&#8203;)</p></li><li><p>Conformité audits ANJ, Data analytics</p></li><li><p>Observabilité</p></li><li><p>KPIs métier</p></li><li><p>Système de bots interne (tests)</p></li><li><p>UX/Designers, QA tests autos/manuels 😘</p></li></ul></div></div></section>
 <section id="_cross_device_frontend"><h2>Cross-device frontend</h2><div class="slide-content"><div class="ulist"><ul><li><p>Flutter</p><div class="ulist"><ul><li><p>📱 iOS, Android</p></li><li><p>🖥️ Windows, MacOS</p></li></ul></div></li></ul></div></div></section>
-<section id="_chiffres"><h2>Chiffres</h2><div class="slide-content"><div class="paragraph"><p>Donner des KPIs, avec l&#8217;accord de Cyril</p></div></div></section>
+<section id="_chiffres"><h2>Chiffres</h2><div class="slide-content"><div class="paragraph"><p>Donner des KPIs, avec l&#8217;aval/revue de Cyril</p></div></div></section>
 <section id="_questions" class="columns is-vcentered"><h2>Questions ?</h2><div class="slide-content"><div class="paragraph column"><p><span class="image"><img src="images/avatar.jpg" alt="avatar" width="90%"></span></p></div>
 <div class="paragraph column is-two-thirds"><p><strong>Nicolas Comet</strong><br>
 Senior Staff Software Engineer<br>
@@ -638,7 +606,7 @@ Poker ♣️♦️♠️♥️<br>
 <a href="https://www.linkedin.com/in/nicolascomet"><span class="icon"><i class="fa fa-linkedin"></i></span>.com/nicolascomet</a><br>
 <a href="https://bsky.app/profile/ncomet.bsky.social">@ncomet.bsky.social</a><br>
 <a href="https://github.com/ncomet"><span class="icon"><i class="fa fa-github"></i></span>.com/ncomet</a><br></p></div></div></section>
-<section id="_votez"><div class="slide-content"><div class="paragraph"><p>Vote</p></div></div></section></div></div><script src="node_modules/reveal.js/dist/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<section id="_votez"><div class="slide-content"><div class="paragraph"><p>&lt;QR code feedbacks&gt;</p></div></div></section></div></div><script src="node_modules/reveal.js/dist/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
