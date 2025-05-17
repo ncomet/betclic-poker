@@ -117,17 +117,17 @@ class Table(
   val config: TableConfig,
 ) {
    fun seat(player: Player) {
-      with(config) { <1>
-        check(players.size in minPlayers..maxPlayers)
+      with(config) {
+        check(players.size in minPlayers..maxPlayers) <1>
       }
       <2>
-      check(players.distinctBy { it.tablePosition }.size == players.size)
+      check(players.distinctBy { it.position }.size == players.size)
       players.add(player) // mutation
    }
 
    fun lastPlayerLeaves() {
-      with(config) { <1>
-        check(players.size in minPlayers..maxPlayers)
+      with(config) {
+        check(players.size in minPlayers..maxPlayers) <1>
       }
       players.removeLast() // mutation
    }
@@ -144,11 +144,11 @@ data class Table(
     val config: TableConfig,
 ) {
    init {
-     with(config) { <1>
-       check(players.size in minPlayers..maxPlayers)
+     with(config) {
+       check(players.size in minPlayers..maxPlayers) <1>
      }
      <2>
-     check(players.distinctBy { it.tablePosition }.size == players.size)
+     check(players.distinctBy { it.position }.size == players.size)
    }
 
    fun seat(player: Player): Table =
@@ -159,7 +159,7 @@ data class Table(
 }
 ----
 
-== Null
+== `null`
 
 * Kotlin, compilation ✅
 * L'absence de présence
