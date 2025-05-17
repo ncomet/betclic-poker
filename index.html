@@ -456,18 +456,19 @@ data class Table(
   val config: TableConfig,
 ) {
    fun seat(player: Player) {
-      with(config) {
+      with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
         check(players.size in minPlayers..maxPlayers)
-        check(players.distinctBy { it.tablePosition }.size == players.size)
       }
-      players.add(player)
+      <i class="conum" data-value="2"></i><b>(2)</b>
+      check(players.distinctBy { it.tablePosition }.size == players.size)
+      players.add(player) // mutation
    }
 
    fun lastPlayerLeaves() {
-      with(config) {
-        check(players.size in config.minPlayers..config.maxPlayers)
+      with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
+        check(players.size in minPlayers..maxPlayers)
       }
-      players.removeLast()
+      players.removeLast() // mutation
    }
 }</code></pre></div></div></div></section>
 <section id="_invariants_2"><h2>Invariants 🚫</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">data class Table(
@@ -476,17 +477,18 @@ data class Table(
     val config: TableConfig,
 ) {
    init {
-     with(config) {
+     with(config) { <i class="conum" data-value="1"></i><b>(1)</b>
        check(players.size in minPlayers..maxPlayers)
-       check(players.distinctBy { it.tablePosition }.size == players.size)
      }
+     <i class="conum" data-value="2"></i><b>(2)</b>
+     check(players.distinctBy { it.tablePosition }.size == players.size)
    }
 
    fun seat(player: Player): Table =
-      copy(players = players + player)
+      copy(players = players + player) // immutable
 
    fun lastPlayerLeaves(): Table =
-      copy(players = players.dropLast(1))
+      copy(players = players.dropLast(1)) // immutable
 }</code></pre></div></div></div></section>
 <section id="_null"><h2>Null</h2><div class="slide-content"><div class="ulist"><ul><li><p>Kotlin, compilation ✅</p></li><li><p>L&#8217;absence de présence</p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">data class RewardPoints(val value: Int)
@@ -555,8 +557,7 @@ value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
     require(value &gt;= 0) { "Chips cannot be negative" }
   }
   @Deprecated("Don't use div: splitBy()!", level = ERROR)
-  operator fun div(divider: Int): Chips =
-    throw NotImplementedError()
+  operator fun div(divider: Int): Chips = throw NotImplementedError()
 
   infix fun splitBy(divider: Int): WholeAndRemainder {
     require(divider &gt; 0)
@@ -582,7 +583,7 @@ value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
 <div class="paragraph"><p><strong>VS.</strong></p></div>
 <div class="paragraph column"><p><span class="image"><img src="images/websockets.png" alt="websockets" width="45%"></span><br>
 WebSockets<br></p></div></div></section>
-<section id="_protocoles"><h2>Protocoles</h2><div class="slide-content"><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">gRPC</th><th class="tableblock halign-left valign-top">WebSockets</th></tr><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">+ performance (binaire)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">- verbeux (JSON)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- jeune écosystème</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ répandu (👨‍🦳, outillage)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- ❌ navigateur (2023)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ ✅ tous clients</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- 😓 broadcast</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ 🙏 broadcast</p></td></tr></table></div></section>
+<section id="_protocoles"><h2>Protocoles</h2><div class="slide-content"><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><thead><tr><th class="tableblock halign-left valign-top"><code>gRPC</code></th><th class="tableblock halign-left valign-top"><code>WebSockets</code></th></tr><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">+ performance (binaire)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">- verbeux (JSON)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- jeune écosystème</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ répandu (👨‍🦳, outillage)</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- ❌ navigateur (2023)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ ✅ tous clients</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">- 😓 broadcast</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">+ 🙏 broadcast</p></td></tr></table></div></section>
 <section id="_ktor"><h2>Ktor</h2><div class="slide-content"><div class="ulist"><ul><li><p>❌ Framework</p></li><li><p>🪶 Light</p></li><li><p>∥ Coroutines</p></li><li><p>📦 WebSocket, HTTP2</p><div class="ulist"><ul><li><p>server/client engine<strong>s</strong></p></li></ul></div></li><li><p>⏭️ gRPC/protobuf</p></li></ul></div></div></section>
 <section id="_aws_gamelift"><h2>AWS GameLift 🎮</h2><div class="slide-content"><div class="ulist"><ul><li><p><code>Fleet</code> (cycle de vie &amp; scaling des GameServers)</p></li><li><p><code>FlexMatch</code> (matchmaking des joueurs)</p></li></ul></div></div></section>
 <section id="_architecture" data-background-image="images/poker-archi.drawio.png" data-background-size="contain"></section>
