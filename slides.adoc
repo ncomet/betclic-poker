@@ -30,18 +30,26 @@ revealDiv.appendChild(footer);
 </div>
 ++++
 
+== Contexte
+
+[%step]
+* Poker white label __Betclic__ 🏷️
+* Propre plateforme 🆕
+** Être autonome 💪, réactif ⚡
+* Moderniser le Poker ✨ 🎮
+
 == Ambition
 
-* 🆕 Appli cross-device, 🆕 Plateforme de poker
+* 🆕 Plateforme de Poker & App. cross-devices 
 * *09/2023*
 ** Lancement du projet 🚀
 ** NDA public & _interne_ 🤐
 ** 1 squad, 10 personnes (8 devs) 🥷
-* *12/2024*
+* *??/????*
 ** Mise en prod 🎯
 **  3 squads, 60 personnes (40 devs) 📈
 
-== Contexte Poker
+== Poker Room
 
 [%step]
 * Complexité métier ♣️♦️♠️♥️ 
@@ -53,19 +61,19 @@ revealDiv.appendChild(footer);
 == Choix forts
 
 [%step]
-* Sur l'étagère 📦 (SaaS)
-* Archi hexagonale (DDD)
+* Sur l'étagère 📦 (SaaS, PaaS)
+* Archi µservices hexa (mix DDD)
 * `Kotlin` + `Ktor`
-* API first 🙏
 * Immutabilité 🪨
+* API first 📃🙏
 * CQRS + Events 📧
 
 == Kotlin
 
-* Moderne, haut niveau 
+* Moderne, haut niveau
 * Concis 🪄
 * Null safe (compile time) 👋💣
-* Fonctionnel 
+* Fonctionnel
 * Décourage mutabilité, héritage 🙏
 
 == Immutabilité 🪨
@@ -311,14 +319,14 @@ WebSockets +
 |+ performance (binaire)
 |- verbeux (JSON)
 
-|- connu équipe (écosystème)
-|+ familier équipe
+|- jeune écosystème
+|+ répandu (👨‍🦳, outillage)
 
-|- navigateur (2023)
-|+ tous clients
+|- ❌ navigateur (2023)
+|+ ✅ tous clients
 
-|- broadcast
-|+ broadcast
+|- 😓 broadcast
+|+ 🙏 broadcast
 |===
 
 == Ktor
@@ -326,7 +334,8 @@ WebSockets +
 * ❌ Framework
 * 🪶 Light
 * ∥ Coroutines
-* 📦 WebSocket server engines
+* 📦 WebSocket, HTTP2 
+** server/client engine**s**
 * ⏭️ gRPC/protobuf
 
 == AWS GameLift 🎮
@@ -347,14 +356,7 @@ image::poker-archi.drawio.png[background, size=contain]
 
 == Rolling updates
 
-++++
-<html>
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script>
-  <body>
-    <pre class="mermaid">
+////
 sequenceDiagram
     autonumber
     participant CI as CI/CD
@@ -382,10 +384,9 @@ sequenceDiagram
       NEW ->> FL: Register table prête
       deactivate NEW
     end
-    </pre>
-  </body>
-</html>
-++++
+////
+
+image:rolling_update.png[width=75%]
 
 == RNG Service
 
@@ -393,11 +394,40 @@ sequenceDiagram
 
 == CQRS
 
-* Command Query Responsibility Segregation
+**C**ommand **Q**uery **R**esponsibility **S**egregation
 
-== Table, Commands, Events
+== Table : CQRS + Events
 
-image:exposition-CQRS.png[width=70%]
+////
+flowchart BT
+    subgraph domain
+        Table -->|Invokes| Croupier
+        TimeKeeper -->|Invokes| Croupier
+        Table -->|Emits| ef([EventFlow]):::eventflow
+        ef([EventFlow]) -. Consumes .-> TimeKeeper
+        Croupier -->|Emits| cf([CommandQueryFlow]):::commandflow
+        cf([CommandQueryFlow]) -. Consumes .-> Table
+    end
+    subgraph HTTP exposition
+        HTTP -->|Queries| cf([CommandQueryFlow])
+        cf([CommandQueryFlow]) -->|Responses| HTTP
+    end
+    subgraph WebSocket exposition
+        Socket -->|Commands| cf([CommandQueryFlow])
+        ef([EventFlow]) -. Consumes .-> Socket
+    end
+    subgraph game clients
+        Client -->|WS Commands| Socket
+        Socket -->|WS Events| Client
+    end
+    linkStyle 2,3,9 stroke: green;
+    linkStyle 4,5,8 stroke: red;
+    linkStyle 6,7 stroke: orange;
+    classDef commandflow stroke: red;
+    classDef eventflow stroke: green;
+////
+
+image:exposition-CQRS.png[width=68%]
 
 == Timekeeper
 
@@ -407,13 +437,26 @@ image:exposition-CQRS.png[width=70%]
 
 == Concurrence (non affinité)
 
-== La vie réelle (mise en prod)
+[.columns.is-vcentered]
+== Go live, mise en prod !
 
-* 09/12/2023
+[.column]
+*09/12/2024* +
+1 an, 3 mois
 
-== Les abus
+[.column]
+image::annonce_clubpoker.png[]
+
+== Les abus ⛔
+
+[%step]
+* _Tournois_ Enreg. tardif de masse 👨‍👩‍👦‍👦⌚
+* _CashGame_ sélection des adversaires 🔍
+* _Spin&Rush_ lancements en rafale 📈
 
 == Critiques passagères
+
+image:critics.gif[]
 
 == Conclusion
 
@@ -429,18 +472,25 @@ image::table.jpg[background, size=contain]
 
 video::desktop_demo.mov[width=100%, opts=autoplay,loop]
 
-[%notitle]
-== Conclusion
+== Achievement unlocked 🏆
 
-* 2 variantes, 3 🔜 4 modes de jeu
-* Back office (emergencies, sanctions, ...)
+* 3 🔜 4 modes de jeu
+** _Spin&Rush_ 
+** _CashGame_ (Texas Holdem, Omaha)
+** _Tournois_ (MTT)
 * Prévention / Détection
 ** Fraude
 ** Collusion
 ** Bots
+
+== Achievement unlocked 🏆
+
+* Back office (urgences, sanctions, ...)
 * Conformité audits ANJ, Data analytics
 * Observabilité
 * KPIs métier
+* Système de bots interne (tests)
+* UX/Designers, QA tests autos/manuels 😘
 
 == Cross-device frontend
 
@@ -450,7 +500,7 @@ video::desktop_demo.mov[width=100%, opts=autoplay,loop]
 
 == Chiffres
 
-Donner des KPIs, avec l'accord de Cyril
+Donner des KPIs, avec l'aval/revue de Cyril
 
 [.columns.is-vcentered]
 == Questions ?
@@ -471,4 +521,4 @@ https://github.com/ncomet[icon:github[].com/ncomet] +
 [%notitle]
 == Votez 🙏
 
-Vote
+<QR code feedbacks>
