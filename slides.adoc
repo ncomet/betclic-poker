@@ -1,6 +1,8 @@
 = All-in sur la plateforme : Nouveau Poker @Betclic !
 :imagesdir: images
 :source-highlighter: highlightjs
+//:revealjs_width: 1220
+//:revealjs_height: 889
 :revealjs_theme: white
 :revealjs_history: true
 :revealjs_slideNumber: true
@@ -115,18 +117,19 @@ class Table(
   val config: TableConfig,
 ) {
    fun seat(player: Player) {
-      with(config) {
+      with(config) { <1>
         check(players.size in minPlayers..maxPlayers)
-        check(players.distinctBy { it.tablePosition }.size == players.size)
       }
-      players.add(player)
+      <2>
+      check(players.distinctBy { it.tablePosition }.size == players.size)
+      players.add(player) // mutation
    }
 
    fun lastPlayerLeaves() {
-      with(config) {
-        check(players.size in config.minPlayers..config.maxPlayers)
+      with(config) { <1>
+        check(players.size in minPlayers..maxPlayers)
       }
-      players.removeLast()
+      players.removeLast() // mutation
    }
 }
 ----
@@ -141,17 +144,18 @@ data class Table(
     val config: TableConfig,
 ) {
    init {
-     with(config) {
+     with(config) { <1>
        check(players.size in minPlayers..maxPlayers)
-       check(players.distinctBy { it.tablePosition }.size == players.size)
      }
+     <2>
+     check(players.distinctBy { it.tablePosition }.size == players.size)
    }
 
    fun seat(player: Player): Table =
-      copy(players = players + player)
+      copy(players = players + player) // immutable
 
    fun lastPlayerLeaves(): Table =
-      copy(players = players.dropLast(1))
+      copy(players = players.dropLast(1)) // immutable
 }
 ----
 
@@ -269,8 +273,7 @@ value class Chips(val value: Long) : Comparable<Chips> {
     require(value >= 0) { "Chips cannot be negative" }
   }
   @Deprecated("Don't use div: splitBy()!", level = ERROR)
-  operator fun div(divider: Int): Chips = 
-    throw NotImplementedError()
+  operator fun div(divider: Int): Chips = throw NotImplementedError()
 
   infix fun splitBy(divider: Int): WholeAndRemainder {
     require(divider > 0)
@@ -331,7 +334,7 @@ WebSockets +
 == Protocoles
 
 |===
-|gRPC |WebSockets 
+|`gRPC` |`WebSockets` 
 
 |+ performance (binaire)
 |- verbeux (JSON)
