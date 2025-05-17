@@ -533,12 +533,23 @@ value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
     Chips(value * factor)
   override fun compareTo(other: Chips): Int =
     value.compareTo(other.value)
-}</code></pre></div></div>
-<div class="listingblock fragment"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">123.chips &gt;= 42.chips // true
-123.chips in 100.chips..200.chips // true
-123.chips + 42.chips == 165.chips
-123.chips - 888.chips // 💥 IllegalArgumentException</code></pre></div></div></div></section>
+}</code></pre></div></div></div></section>
 <section id="_value_classes_3"><h2>Value classes 🪙</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">@JvmInline
+value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
+  init {
+    require(value &gt;= 0) { "Chips cannot be negative" }
+  }
+
+  companion object {
+    val Int.chips get() = Chips(toLong())
+  }
+}</code></pre></div></div>
+<div class="listingblock fragment"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">123.chips &gt;= 42.chips             // true
+123.chips in 100.chips..200.chips // true
+123.chips + 42.chips == 165.chips // true
+111.chips * 7 == 777.chips        // true
+123.chips - 888.chips // 💥 Chips cannot be negative</code></pre></div></div></div></section>
+<section id="_value_classes_4"><h2>Value classes 🪙</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">@JvmInline
 value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
   init {
     require(value &gt;= 0) { "Chips cannot be negative" }
@@ -555,7 +566,7 @@ value class Chips(val value: Long) : Comparable&lt;Chips&gt; {
   }
 )</code></pre></div></div>
 <div class="paragraph fragment"><p><span class="image"><img src="images/div_deprecated.png" alt="div deprecated" width="90%"></span></p></div></div></section>
-<section id="_value_classes_4"><h2>Value classes 🪙</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">fun split(pot: Chips, players: List&lt;Player&gt;)
+<section id="_value_classes_5"><h2>Value classes 🪙</h2><div class="slide-content"><div class="listingblock"><div class="content"><pre class="highlightjs highlight"><code class="language-kotlin hljs" data-noescape="true" data-lang="kotlin">fun split(pot: Chips, players: List&lt;Player&gt;)
     : Map&lt;Player, Chips&gt;
 {
   val (whole, remainder) = pot.splitBy(players.size) // ✅
